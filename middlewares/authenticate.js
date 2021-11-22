@@ -6,9 +6,15 @@ const { SECRET_KEY } = process.env
 
 const authenticate = async(req, res, next) => {
   try {
+    if (!req.headers.authorization) {
+      throw new Unauthorized('You are not authorized')
+    }
     const [bearer, token] = req.headers.authorization.split(' ')
+    if (!bearer) {
+      console.log('bearer, token')
+    }
     if (bearer !== 'Bearer') {
-      throw new Unauthorized('Not authorized')
+      throw new Unauthorized('You are not authorized')
     }
 
     try {
@@ -16,7 +22,7 @@ const authenticate = async(req, res, next) => {
       console.log(id)
       const user = await User.findById(id)
       if (!user || !user.token) {
-        throw new Unauthorized('Not authorized')
+        throw new Unauthorized('You are not authorized')
       }
       req.user = user
       console.log(user)
