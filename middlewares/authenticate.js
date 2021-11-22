@@ -25,7 +25,6 @@ const authenticate = async(req, res, next) => {
         throw new Unauthorized('You are not authorized')
       }
       req.user = user
-      console.log(user)
       next()
     } catch (error) {
       throw new Unauthorized(error.message)
