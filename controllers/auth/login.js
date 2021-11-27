@@ -6,7 +6,6 @@ const { User } = require('../../models')
 const { SECRET_KEY } = process.env
 
 const login = async(req, res) => {
-  console.log(req.body)
   const { email, password } = req.body
   const user = await User.findOne({ email })
 
