@@ -4,8 +4,7 @@ const { User } = require('../../models')
 
 const register = async(req, res) => {
   const { email, password } = req.body
-  const gravatarURL = gravatar.url(email, { protocol: 'http' })
-  const avatarURL = gravatarURL
+  const avatarURL = gravatar.url(email, { protocol: 'http' })
   const user = await User.findOne({ email })
   if (user) {
     throw new Conflict(`User with email: ${email} already exists`)
